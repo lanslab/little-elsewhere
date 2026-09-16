@@ -69,6 +69,10 @@
   margin-top: 13px;
 }
 
+.pupu-feedback-note {
+  margin: -2px 0 8px;
+}
+
 .pupu-social-link {
   min-height: 32px;
   padding: 7px 11px;
