@@ -1,0 +1,82 @@
+/* Little Elsewhere — Pupu release panel */
+.pupu-release-panel {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(66, 91, 73, .18);
+}
+
+.pupu-release-label {
+  margin: 0 0 9px;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #748276;
+}
+
+.pupu-download-row,
+.pupu-social-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pupu-download-btn,
+.pupu-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 83, 64, .24);
+  background: rgba(255, 252, 244, .72);
+  color: #324b39;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.pupu-download-btn:hover,
+.pupu-social-link:hover {
+  transform: translateY(-1px);
+  background: #fffaf0;
+  border-color: rgba(56, 83, 64, .42);
+}
+
+.pupu-download-btn.primary {
+  background: #405f49;
+  border-color: #405f49;
+  color: #fffdf7;
+}
+
+.pupu-download-btn.is-pending {
+  cursor: default;
+  pointer-events: none;
+  opacity: .45;
+  border-style: dashed;
+}
+
+.pupu-release-note {
+  margin: 9px 0 0;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #7a8079;
+}
+
+.pupu-social-block {
+  margin-top: 13px;
+}
+
+.pupu-social-link {
+  min-height: 32px;
+  padding: 7px 11px;
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .pupu-download-btn {
+    flex: 1 1 calc(50% - 8px);
+  }
+}
