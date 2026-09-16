@@ -8,7 +8,7 @@
     if (url) {
       el.href = url;
       el.target = '_blank';
-      el.rel = 'noreferrer';
+      el.rel = 'noopener noreferrer';
     }
     return el;
   }
@@ -19,9 +19,25 @@
     a.className = 'pupu-social-link';
     a.href = url;
     a.target = '_blank';
-    a.rel = 'noreferrer';
+    a.rel = 'noopener noreferrer';
     a.textContent = label;
     return a;
+  }
+
+  function patchInstallGuide() {
+    const steps = [...document.querySelectorAll('.step')];
+    const installStep = steps.find((step) => step.querySelector('strong')?.textContent.includes('1.'));
+    const launchStep = steps.find((step) => step.querySelector('strong')?.textContent.includes('2.'));
+    const installText = installStep?.querySelector('p');
+    const launchText = launchStep?.querySelector('p');
+
+    if (installText) {
+      installText.textContent = 'Windows：下载安装包后正常安装即可。如果出现“Windows 已保护你的电脑”或未知开发者提示，请点击“更多信息” → “仍要运行”。';
+    }
+
+    if (launchText) {
+      launchText.textContent = 'macOS：打开 DMG 后先将 Pupu 拖入 Applications / 应用程序，弹出 DMG，再从 Applications 启动。版本已完成 Apple 签名与公证；不要直接在 DMG 中运行，否则自动更新无法安装。';
+    }
   }
 
   function mount() {
@@ -30,7 +46,10 @@
     if (!card) return;
 
     const bio = card.querySelector('.bio');
-    if (!bio || bio.querySelector('.pupu-release-panel')) return;
+    if (!bio || bio.querySelector('.pupu-release-panel')) {
+      patchInstallGuide();
+      return;
+    }
 
     // Replace the original single Download Pupu link with platform-specific entry points.
     bio.querySelector('.download-hit')?.remove();
@@ -47,53 +66,62 @@
     downloads.append(
       makeDownload('Windows', cfg.windows, true),
       makeDownload('macOS', cfg.mac),
-      makeDownload('网盘 / Mirror', cfg.mirror)
+      makeDownload('夸克网盘', cfg.mirror)
     );
 
     const note = document.createElement('p');
     note.className = 'pupu-release-note';
-    note.textContent = 'Choose your platform. The mirror is a backup download for users who prefer it.';
+    note.textContent = 'Windows / macOS 使用 GitHub 官方发布包；国内下载较慢时可使用夸克网盘。';
 
     panel.append(label, downloads, note);
 
     const socials = [
-      makeSocial('GitHub', cfg.github),
-      makeSocial('小红书', cfg.xiaohongshu)
+      makeSocial('微博 · @十一十', cfg.weibo),
+      makeSocial('小红书 · @十一十', cfg.xiaohongshu)
     ].filter(Boolean);
 
     if (socials.length) {
       const socialBlock = document.createElement('div');
       socialBlock.className = 'pupu-social-block';
+
       const socialLabel = document.createElement('p');
       socialLabel.className = 'pupu-release-label';
-      socialLabel.textContent = 'Follow Little Elsewhere';
+      socialLabel.textContent = '问题 / 建议 / Bug 反馈';
+
+      const socialNote = document.createElement('p');
+      socialNote.className = 'pupu-release-note pupu-feedback-note';
+      socialNote.textContent = '可以在微博或小红书找到我：@十一十';
+
       const socialRow = document.createElement('div');
       socialRow.className = 'pupu-social-row';
       socials.forEach((item) => socialRow.appendChild(item));
-      socialBlock.append(socialLabel, socialRow);
+
+      socialBlock.append(socialLabel, socialNote, socialRow);
       panel.appendChild(socialBlock);
     }
 
     bio.appendChild(panel);
-
-    // Keep the install guide platform-neutral now that Windows and macOS are both supported.
-    const steps = [...document.querySelectorAll('.step')];
-    const installStep = steps.find((step) => step.querySelector('strong')?.textContent.includes('1.'));
-    const launchStep = steps.find((step) => step.querySelector('strong')?.textContent.includes('2.'));
-    const installText = installStep?.querySelector('p');
-    const launchText = launchStep?.querySelector('p');
-
-    if (installText) {
-      installText.textContent = '在 Pupu 卡片选择 Windows、macOS 或网盘备用下载。Windows 安装包和 macOS DMG 均以本页官方入口为准。';
-    }
-    if (launchText) {
-      launchText.textContent = 'Windows 安装后直接启动；macOS 打开 DMG 后将 Pupu 拖入 Applications。启动后，右键托盘图标可切换状态和调整大小。';
-    }
+    patchInstallGuide();
   }
+
+  const tryMount = () => {
+    mount();
+  };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', mount, { once: true });
+    document.addEventListener('DOMContentLoaded', tryMount, { once: true });
   } else {
-    mount();
+    tryMount();
   }
+
+  // The generated page can hydrate after DOMContentLoaded, so retry briefly without changing the base layout.
+  const observer = new MutationObserver(() => {
+    const card = [...document.querySelectorAll('.companion-card')]
+      .find((item) => item.querySelector('h3')?.textContent.trim() === 'Pupu');
+    if (card) {
+      mount();
+      if (card.querySelector('.pupu-release-panel')) observer.disconnect();
+    }
+  });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
 })();
