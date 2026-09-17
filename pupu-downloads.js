@@ -40,19 +40,25 @@
     }
   }
 
-  function mount() {
-    const card = [...document.querySelectorAll('.companion-card')]
-      .find((item) => item.querySelector('h3')?.textContent.trim() === 'Pupu');
-    if (!card) return;
+  function findPupuCard() {
+    return [...document.querySelectorAll('.card')]
+      .find((item) => item.querySelector('.card-title')?.textContent.trim() === 'Pupu');
+  }
 
-    const bio = card.querySelector('.bio');
-    if (!bio || bio.querySelector('.pupu-release-panel')) {
+  function mount() {
+    const card = findPupuCard();
+    if (!card) {
       patchInstallGuide();
       return;
     }
 
-    // Replace the original single Download Pupu link with platform-specific entry points.
-    bio.querySelector('.download-hit')?.remove();
+    if (card.querySelector('.pupu-release-panel')) {
+      patchInstallGuide();
+      return;
+    }
+
+    // Remove the old full-card v1.0.0 link so the new direct hyperlinks are clickable.
+    card.querySelector('.download-hit')?.remove();
 
     const panel = document.createElement('div');
     panel.className = 'pupu-release-panel';
@@ -65,13 +71,13 @@
     downloads.className = 'pupu-download-row';
     downloads.append(
       makeDownload('Windows', cfg.windows, true),
-      makeDownload('macOS', cfg.mac),
+      makeDownload('Mac', cfg.mac),
       makeDownload('夸克网盘', cfg.mirror)
     );
 
     const note = document.createElement('p');
     note.className = 'pupu-release-note';
-    note.textContent = 'Windows / macOS 使用 GitHub 官方发布包；国内下载较慢时可使用夸克网盘。';
+    note.textContent = 'Windows / Mac 直接下载 GitHub Release；国内下载较慢时可使用夸克网盘。';
 
     panel.append(label, downloads, note);
 
@@ -84,44 +90,28 @@
       const socialBlock = document.createElement('div');
       socialBlock.className = 'pupu-social-block';
 
-      const socialLabel = document.createElement('p');
-      socialLabel.className = 'pupu-release-label';
-      socialLabel.textContent = '问题 / 建议 / Bug 反馈';
-
       const socialNote = document.createElement('p');
       socialNote.className = 'pupu-release-note pupu-feedback-note';
-      socialNote.textContent = '可以在微博或小红书找到我：@十一十';
+      socialNote.textContent = '问题 / 建议 / Bug 反馈：';
 
       const socialRow = document.createElement('div');
       socialRow.className = 'pupu-social-row';
       socials.forEach((item) => socialRow.appendChild(item));
 
-      socialBlock.append(socialLabel, socialNote, socialRow);
+      socialBlock.append(socialNote, socialRow);
       panel.appendChild(socialBlock);
     }
 
-    bio.appendChild(panel);
+    const body = card.querySelector('.card-body');
+    if (body) body.insertAdjacentElement('afterend', panel);
+    else card.appendChild(panel);
+
     patchInstallGuide();
   }
 
-  const tryMount = () => {
-    mount();
-  };
-
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', tryMount, { once: true });
+    document.addEventListener('DOMContentLoaded', mount, { once: true });
   } else {
-    tryMount();
+    mount();
   }
-
-  // The generated page can hydrate after DOMContentLoaded, so retry briefly without changing the base layout.
-  const observer = new MutationObserver(() => {
-    const card = [...document.querySelectorAll('.companion-card')]
-      .find((item) => item.querySelector('h3')?.textContent.trim() === 'Pupu');
-    if (card) {
-      mount();
-      if (card.querySelector('.pupu-release-panel')) observer.disconnect();
-    }
-  });
-  observer.observe(document.documentElement, { childList: true, subtree: true });
 })();
