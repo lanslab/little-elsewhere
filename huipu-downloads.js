@@ -37,7 +37,7 @@
     const img = document.createElement('img');
     img.className = 'card-pupu card-huipu';
     img.src = './huipu/huipu-card.webp';
-    img.alt = 'HuiPu：布布和普普一起养花';
+    img.alt = 'HuiPu：布布搂着普普一起自拍';
     body.appendChild(img);
 
     const panel = document.createElement('div');

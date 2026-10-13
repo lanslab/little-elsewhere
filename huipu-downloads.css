@@ -24,9 +24,9 @@
 
 /* The duo is wider than Pupu: give the draggable figure more room. */
 .hero-pet.duo {
-  width: 21%;
-  min-width: 104px;
-  max-width: 172px;
+  width: 15%;
+  min-width: 74px;
+  max-width: 120px;
 }
 
 @media (max-width: 640px) {
