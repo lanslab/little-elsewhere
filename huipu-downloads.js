@@ -29,7 +29,7 @@
     const card = cardByTitle('Next');
     if (!card) return null;
     card.classList.add('has-release', 'huipu-card');
-    card.querySelector('.card-title').innerHTML = 'HuiPu <span class="huipu-badge">Beta</span>';
+    card.querySelector('.card-title').textContent = 'HuiPu';
     card.querySelector('.card-note')?.remove();
 
     const body = card.querySelector('.card-body');
