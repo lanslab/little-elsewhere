@@ -1,0 +1,35 @@
+/* Little Elsewhere — HuiPu card and stage switch */
+.card.has-release .card-body { height: 252px; }
+.card.has-release .card-pupu { height: 222px; max-width: 92%; }
+.card-huipu { object-fit: contain; }
+
+.huipu-badge {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #e9e4dc;
+  color: #6f675e;
+  font: 600 10px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", sans-serif;
+  letter-spacing: .04em;
+  vertical-align: middle;
+}
+
+.card.stage-switch { cursor: pointer; transition: border-color .15s ease, box-shadow .15s ease; }
+.card.stage-switch:hover { border-color: #bdb5ab; }
+.card.stage-switch.on-stage {
+  border-color: #405f49;
+  box-shadow: 0 0 0 1px #405f49 inset;
+}
+
+/* The duo is wider than Pupu: give the draggable figure more room. */
+.hero-pet.duo {
+  width: 21%;
+  min-width: 104px;
+  max-width: 172px;
+}
+
+@media (max-width: 640px) {
+  .card.has-release .card-body { height: 230px; }
+  .card.has-release .card-pupu { height: 200px; }
+}

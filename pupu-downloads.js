@@ -46,7 +46,7 @@
       installText.textContent = 'Windows：下载安装包后正常安装即可。如果出现“Windows 已保护你的电脑”或未知开发者提示，请点击“更多信息” → “仍要运行”。';
     }
     if (launchText) {
-      launchText.textContent = 'macOS：打开 DMG 后先将 Pupu 拖入 Applications / 应用程序，弹出 DMG，再从 Applications 启动。版本已完成 Apple 签名与公证；不要直接在 DMG 中运行，否则自动更新无法安装。';
+      launchText.textContent = 'macOS：打开 DMG 后先将 Pupu / HuiPu 拖入 Applications / 应用程序，弹出 DMG，再从 Applications 启动。版本已完成 Apple 签名与公证；不要直接在 DMG 中运行，否则自动更新无法安装。HuiPu 双人版 Mac 安装包仅支持 Apple 芯片（M 系列）。';
     }
   }
 
