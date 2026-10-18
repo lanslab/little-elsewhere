@@ -6,6 +6,7 @@
     mac: `<svg class="pupu-download-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.8 12.7c0-2.1 1.7-3.1 1.8-3.2a4 4 0 0 0-3.1-1.7c-1.3-.1-2.5.8-3.2.8-.7 0-1.7-.8-2.8-.8-1.4 0-2.8.9-3.5 2.2-1.5 2.7-.4 6.7 1.1 8.8.7 1 1.6 2.2 2.7 2.1 1.1 0 1.5-.7 2.8-.7s1.7.7 2.8.7c1.2 0 1.9-1 2.6-2 .8-1.2 1.2-2.4 1.2-2.5-.1 0-2.4-1-2.4-3.7ZM14.6 6.4c.6-.8 1-1.9.9-3-.9 0-2 .6-2.7 1.3-.6.7-1.1 1.8-.9 2.9 1 .1 2-.5 2.7-1.2Z"/></svg>`,
     quark: `<svg class="pupu-download-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7.2 17.5h9.7a3.6 3.6 0 0 0 .4-7.2A5.5 5.5 0 0 0 7 9.2a4.2 4.2 0 0 0 .2 8.3Z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 10.5v5m-2.5-2.5h5"/></svg>`,
     xhs: `<svg class="pupu-social-icon" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="6.5" fill="#ff2442"/><text x="14" y="16.2" text-anchor="middle" font-size="6.6" font-weight="700" fill="#fff" font-family="Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif">小红书</text></svg>`,
+    douyin: `<svg class="pupu-social-icon" viewBox="0 0 28 28" aria-hidden="true"><rect x="1" y="1" width="26" height="26" rx="6.5" fill="#111"/><g transform="translate(2 2)"><path fill="#25f4ee" transform="translate(-0.8 -0.6)" d="M15.5 4.5c.4 1.8 1.7 3 3.5 3.2v2.6c-1.3 0-2.5-.4-3.5-1.1v5.3a4.6 4.6 0 1 1-4.6-4.6c.3 0 .5 0 .8.1v2.7a2 2 0 1 0 1.3 1.8V4.5h2.5Z"/><path fill="#fe2c55" transform="translate(0.8 0.6)" d="M15.5 4.5c.4 1.8 1.7 3 3.5 3.2v2.6c-1.3 0-2.5-.4-3.5-1.1v5.3a4.6 4.6 0 1 1-4.6-4.6c.3 0 .5 0 .8.1v2.7a2 2 0 1 0 1.3 1.8V4.5h2.5Z"/><path fill="#fff" d="M15.5 4.5c.4 1.8 1.7 3 3.5 3.2v2.6c-1.3 0-2.5-.4-3.5-1.1v5.3a4.6 4.6 0 1 1-4.6-4.6c.3 0 .5 0 .8.1v2.7a2 2 0 1 0 1.3 1.8V4.5h2.5Z"/></g></svg>`,
     weibo: `<svg class="pupu-social-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="#e6162d" d="M14.7 10.1c-.6-.2-.4-.6-.2-1.1.2-.6.2-1.1-.1-1.4-.6-.7-2.3-.3-4.2.9-1.7 1.1-3.2 2.7-3.2 4.1 0 2.1 3 3.5 6.1 3.5 4 0 6.7-1.9 6.7-4.2 0-1.4-1.3-2.1-2.8-2.1-.7 0-1.4.1-2.3.3Zm-1.9 4.3c-1.9 0-3.5-.9-3.5-2 0-1 .9-1.7 2-1.9 1.8-.4 3.8.4 4.2 1.4.4 1.1-.8 2.5-2.7 2.5Z"/><circle cx="12.2" cy="12.4" r="1.1" fill="#000"/><path d="M17.2 6.8a4.3 4.3 0 0 1 3.8 3.7" fill="none" stroke="#f5a623" stroke-width="1.7" stroke-linecap="round"/><path d="M17.6 4.3a6.7 6.7 0 0 1 5.8 5.6" fill="none" stroke="#f5a623" stroke-width="1.5" stroke-linecap="round"/></svg>`
   };
 
@@ -46,7 +47,7 @@
       installText.textContent = 'Windows：下载安装包后正常安装即可。如果出现“Windows 已保护你的电脑”或未知开发者提示，请点击“更多信息” → “仍要运行”。';
     }
     if (launchText) {
-      launchText.textContent = 'macOS：打开 DMG 后先将 Pupu / HuiPu 拖入 Applications / 应用程序，弹出 DMG，再从 Applications 启动。版本已完成 Apple 签名与公证；不要直接在 DMG 中运行，否则自动更新无法安装。HuiPu 双人版 Mac 安装包仅支持 Apple 芯片（M 系列）。';
+      launchText.textContent = 'macOS：双击打开 DMG，把 Pupu / HuiPu 拖进「应用程序」，再从「应用程序」打开就好（已完成 Apple 签名与公证）。支持 Apple 芯片和 Intel 芯片；HuiPu 双人版的 Intel 版请从夸克网盘下载。';
     }
   }
 
@@ -70,6 +71,8 @@
     const weibo = makeSocial(cfg.weibo, '微博 @十一十', icons.weibo);
     if (xhs) block.appendChild(xhs);
     if (weibo) block.appendChild(weibo);
+    const douyin = makeSocial(cfg.douyin, '抖音 @十一十', icons.douyin);
+    if (douyin) block.appendChild(douyin);
     install.appendChild(block);
   }
 
